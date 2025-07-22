@@ -6,6 +6,9 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from app.models.sales import Sale
+    from app.models.inventory import Inventory
+    from app.models.stock_delivery import StockDelivery
+
 
 class Branch(Base):
     __tablename__ = "branches"
@@ -15,4 +18,6 @@ class Branch(Base):
     location: Mapped[str] = mapped_column()
     created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
 
-    sales: Mapped[list[Sale]] = relationship("Sale", back_populates="product")
+    sales: Mapped[list[Sale]] = relationship("Sale", back_populates="branch")
+    inventories: Mapped[list[Inventory]] = relationship("Inventory", back_populates="branch")
+    stock_deliveries: Mapped[list[StockDelivery]] = relationship("StockDelivery", back_populates="branch")

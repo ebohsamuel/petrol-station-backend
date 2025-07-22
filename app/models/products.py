@@ -7,6 +7,9 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from app.models.price_history import PriceHistory
     from app.models.sales import Sale
+    from app.models.inventory import Inventory
+    from app.models.product_collection_request import ProductCollectionRequest
+    from app.models.stock_delivery import StockDelivery
 
 class Products(Base):
     __tablename__ = "products"
@@ -18,3 +21,6 @@ class Products(Base):
 
     price_history: Mapped[list[PriceHistory]] = relationship("PriceHistory", back_populates="product")
     sales: Mapped[list[Sale]] = relationship("Sale", back_populates="product")
+    inventories: Mapped[list[Inventory]] = relationship("Inventory", back_populates="product")
+    product_collection_requests: Mapped[list[ProductCollectionRequest]] = relationship("ProductCollectionRequest", back_populates="product")
+    stock_deliveries: Mapped[list[StockDelivery]] = relationship("StockDelivery", back_populates="product")
