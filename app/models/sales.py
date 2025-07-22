@@ -22,6 +22,6 @@ class Sale(Base):
     sales_time: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
     plate_number: Mapped[str] = mapped_column(nullable=True) # null for issues that don't concern plate number
 
-    product: Mapped[Products] = relationship("Products", back_populates="sales")
-    customer: Mapped[Customers] = relationship("Customers", back_populates="sales")
-    branch: Mapped[Branch] = relationship("Branch", back_populates="sales")
+    product: Mapped["Products"] = relationship("Products", back_populates="sales")
+    customer: Mapped["Customers"] = relationship("Customers", back_populates="sales")
+    branch: Mapped["Branch"] = relationship("Branch", back_populates="sales")

@@ -21,5 +21,5 @@ class Inventory(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
-    product: Mapped[Products] = relationship("Products", back_populates="inventories")
-    branch: Mapped[Branch] = relationship("Branch", back_populates="inventories")
+    product: Mapped["Products"] = relationship("Products", back_populates="inventories")
+    branch: Mapped["Branch"] = relationship("Branch", back_populates="inventories")

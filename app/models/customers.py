@@ -22,5 +22,5 @@ class Customers(Base):
     is_active: Mapped[bool] = mapped_column(default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
 
-    sales: Mapped[list[Sale]] = relationship("Sale", back_populates="customer")
-    product_collection_requests: Mapped[list[ProductCollectionRequest]] = relationship("ProductCollectionRequest", back_populates="customer")
+    sales: Mapped[list["Sale"]] = relationship("Sale", back_populates="customer")
+    product_collection_requests: Mapped[list["ProductCollectionRequest"]] = relationship("ProductCollectionRequest", back_populates="customer")

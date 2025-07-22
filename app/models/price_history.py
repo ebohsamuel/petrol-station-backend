@@ -16,4 +16,4 @@ class PriceHistory(Base):
     price: Mapped[float] = mapped_column()
     created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda:datetime.now(timezone.utc))
 
-    product: Mapped[Products] = relationship("Products", back_populates="price_history")
+    product: Mapped["Products"] = relationship("Products", back_populates="price_history")

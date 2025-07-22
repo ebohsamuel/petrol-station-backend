@@ -23,5 +23,5 @@ class ProductCollectionRequest(Base):
 
     created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
 
-    customer: Mapped[Customers] = relationship("Customers", back_populates="product_collection_requests")
-    product: Mapped[Products] = relationship("Products", back_populates="product_collection_requests")
+    customer: Mapped["Customers"] = relationship("Customers", back_populates="product_collection_requests")
+    product: Mapped["Products"] = relationship("Products", back_populates="product_collection_requests")

@@ -22,5 +22,5 @@ class StockDelivery(Base):
 
     supplied_date: Mapped[date] = mapped_column(DateTime)
 
-    product: Mapped[Products] = relationship("Products", back_populates="stock_deliveries")
-    branch: Mapped[Branch] = relationship("Branch", back_populates="stock_deliveries")
+    product: Mapped["Products"] = relationship("Products", back_populates="stock_deliveries")
+    branch: Mapped["Branch"] = relationship("Branch", back_populates="stock_deliveries")

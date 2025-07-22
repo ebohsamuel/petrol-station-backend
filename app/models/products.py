@@ -19,8 +19,8 @@ class Products(Base):
     latest_price: Mapped[float] = mapped_column(nullable=True)  # updated when price changes. replace the present value with the new value to update record
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=True, default=lambda: datetime.now(timezone.utc))
 
-    price_history: Mapped[list[PriceHistory]] = relationship("PriceHistory", back_populates="product")
-    sales: Mapped[list[Sale]] = relationship("Sale", back_populates="product")
-    inventories: Mapped[list[Inventory]] = relationship("Inventory", back_populates="product")
-    product_collection_requests: Mapped[list[ProductCollectionRequest]] = relationship("ProductCollectionRequest", back_populates="product")
-    stock_deliveries: Mapped[list[StockDelivery]] = relationship("StockDelivery", back_populates="product")
+    price_history: Mapped[list["PriceHistory"]] = relationship("PriceHistory", back_populates="product")
+    sales: Mapped[list["Sale"]] = relationship("Sale", back_populates="product")
+    inventories: Mapped[list["Inventory"]] = relationship("Inventory", back_populates="product")
+    product_collection_requests: Mapped[list["ProductCollectionRequest"]] = relationship("ProductCollectionRequest", back_populates="product")
+    stock_deliveries: Mapped[list["StockDelivery"]] = relationship("StockDelivery", back_populates="product")
