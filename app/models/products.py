@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class Products(Base):
     __tablename__ = "products"
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    id: Mapped[int] = mapped_column(primary_key=True)
     product_name: Mapped[str] = mapped_column(index=True, unique=True, nullable=True)
     latest_price: Mapped[float] = mapped_column(nullable=True)  # updated when price changes. replace the present value with the new value to update record
     created_at: Mapped[datetime] = mapped_column(DateTime, nullable=True, default=lambda: datetime.now(timezone.utc))

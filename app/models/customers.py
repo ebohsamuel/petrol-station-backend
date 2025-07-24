@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from app.models.sales import Sale
     from app.models.product_collection_request import ProductCollectionRequest
+    from app.models.payment import Payment
 
 class Customers(Base):
     __tablename__ = "customers"
@@ -24,3 +25,4 @@ class Customers(Base):
 
     sales: Mapped[list["Sale"]] = relationship("Sale", back_populates="customer")
     product_collection_requests: Mapped[list["ProductCollectionRequest"]] = relationship("ProductCollectionRequest", back_populates="customer")
+    payments: Mapped[list["Payment"]] = relationship("Payment", back_populates="customer")
