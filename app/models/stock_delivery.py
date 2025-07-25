@@ -13,7 +13,7 @@ class StockDelivery(Base):
     __tablename__ = "stock_delivery"
     __table_args__ = (
         Index("ix_branch_supplied_date", "branch_id", "supplied_date"),
-        Index("ix_supplied_date_desc", desc("supplied_date"))
+        Index("ix_supplied_date_desc", desc("supplied_date")),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)

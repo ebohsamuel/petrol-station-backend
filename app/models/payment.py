@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 class Payment(Base):
     __tablename__ = "payments"
     __table_args__ = (
-        Index("ix_cusotmer_created_at", "customer_id", "created_at")
+        Index("ix_cusotmer_created_at", "customer_id", "created_at"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)

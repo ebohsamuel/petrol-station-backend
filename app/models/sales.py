@@ -14,7 +14,7 @@ class Sale(Base):
     __tablename__ = "sales"
     __table_args__ = (
         Index("ix_customer_sales_time", "customer_id", "sales_time"),
-        Index("ix_branch_sales_time", "branch_id", "sales_time")
+        Index("ix_branch_sales_time", "branch_id", "sales_time"),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
