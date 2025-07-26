@@ -8,7 +8,7 @@ from sqlalchemy import select
 from app.models import *
 
 
-#Test creating a branch
+# Test creating a branch
 @pytest.mark.asyncio
 async def test_create_branch(session):
     branch_data = Branch(name="Buvel", location="MM way")

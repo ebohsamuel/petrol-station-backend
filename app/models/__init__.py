@@ -9,4 +9,4 @@ from .stock_delivery import StockDelivery
 from .payment import Payment
 from .user_branch_access import UserBranchAccess
 from .employee import Employee
-from  app.database import Base
+from app.database import Base
