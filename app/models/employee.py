@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from app.models.user_branch_access import UserBranchAccess
-
+    from app.models.sales import Sale
 
 
 class Employee(Base):
@@ -13,9 +13,11 @@ class Employee(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     full_name: Mapped[str] = mapped_column()
     email: Mapped[str] = mapped_column(unique=True, index=True)
+    hashed_password: Mapped[str] = mapped_column()
     phone: Mapped[str] = mapped_column(nullable=True)
     photo: Mapped[str] = mapped_column(nullable=True)
     role: Mapped[str] = mapped_column() # can be admin, manager, sales, inventory
     is_active: Mapped[bool] = mapped_column(default=False)
 
     user_access: Mapped[list["UserBranchAccess"]] = relationship("UserBranchAccess", back_populates="employee")
+    sales: Mapped[list["Sale"]] = relationship("Sale", back_populates="employee")

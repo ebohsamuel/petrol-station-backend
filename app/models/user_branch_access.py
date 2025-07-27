@@ -7,6 +7,7 @@ if TYPE_CHECKING:
     from app.models.branch import Branch
     from app.models.employee import Employee
 
+
 class UserBranchAccess(Base):
     __tablename__ = "user_branch_access"
 

@@ -9,17 +9,22 @@ if TYPE_CHECKING:
     from app.models.product_collection_request import ProductCollectionRequest
     from app.models.payment import Payment
 
+
 class Customers(Base):
     __tablename__ = "customers"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     full_name: Mapped[str] = mapped_column()
     email: Mapped[str] = mapped_column(unique=True, index=True)
+    hashed_password: Mapped[str] = mapped_column()
     phone_number: Mapped[str] = mapped_column(unique=True)
     address: Mapped[str] = mapped_column(nullable=True)
-    photo: Mapped[str] = mapped_column(nullable=True) # image link is save here while the actual file is save in Cloudinary
-    customer_total_collection: Mapped[float] = mapped_column(default=0.0) # what of goods collected. update is done by adding new collection to the present value
-    customer_total_payment: Mapped[float] = mapped_column(default=0.0) # total amount a customer paid in to their wallet. update is done by adding new patment to the previous payment
+    photo: Mapped[str] = mapped_column(nullable=True)  # image link is saved here while the actual file is saved in
+    # Cloudinary
+    customer_total_collection: Mapped[float] = mapped_column(default=0.0)  # what of goods collected. update is done
+    # by adding new collection to the present value
+    customer_total_payment: Mapped[float] = mapped_column(default=0.0)  # total amount a customer paid in to their
+    # wallet. update is done by adding new payment to the previous payment
     is_active: Mapped[bool] = mapped_column(default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
 

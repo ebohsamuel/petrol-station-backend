@@ -8,6 +8,8 @@ if TYPE_CHECKING:
     from app.models.products import Products
     from app.models.customers import Customers
     from app.models.branch import Branch
+    from app.models.employee import Employee
+
 
 # this table registers the goods collected by registered customers and those of walk in customers
 class Sale(Base):
@@ -22,6 +24,7 @@ class Sale(Base):
     product_id: Mapped[int] = mapped_column(ForeignKey("products.id"))
     customer_id: Mapped[int] = mapped_column(ForeignKey("customers.id"), nullable=True) # None = walk-in
     branch_id: Mapped[int] = mapped_column(ForeignKey("branches.id"))
+    employee_id: Mapped[int] = mapped_column(ForeignKey("employees.id"))
 
     plate_number: Mapped[str] = mapped_column(nullable=True) # null for issues that don't concern plate number
 
@@ -33,3 +36,4 @@ class Sale(Base):
     product: Mapped["Products"] = relationship("Products", back_populates="sales")
     customer: Mapped["Customers"] = relationship("Customers", back_populates="sales")
     branch: Mapped["Branch"] = relationship("Branch", back_populates="sales")
+    employee: Mapped["Employee"] = relationship("Employee", back_populates="sales")
