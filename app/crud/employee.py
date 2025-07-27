@@ -65,6 +65,14 @@ async def update_employee(data: employee.EmployeeUpdate, db: AsyncSession):
     for key, value in data_dict.items():
         setattr(employee_data, key, value)
 
-    await db.commit()
-    await db.refresh(employee_data)
-    return employee_data
+    try:
+        await db.commit()
+        await db.refresh(employee_data)
+        return employee_data
+    except SQLAlchemyError as e:
+        await db.rollback()
+        print(f"An error occurred: {e}")
+        raise
+    except ValueError as e:
+        await db.rollback()
+        raise
