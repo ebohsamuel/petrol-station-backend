@@ -39,8 +39,7 @@ async def get_employee_by_email(email: str, db: AsyncSession):
 
 async def create_employee(data: employee.EmployeeCreate, db: AsyncSession):
     hashed_password = pwd_context.hash(data.password)
-    data_dict = data.model_dump()
-    data_dict.pop("password")
+    data_dict = data.model_dump(exclude={"password"})
     employee_data = Employee(**data_dict, hashed_password=hashed_password)
     try:
         db.add(employee_data)
