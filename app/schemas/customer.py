@@ -1,19 +1,18 @@
 from fastapi import HTTPException, status
 from pydantic import BaseModel, ConfigDict, field_validator, ValidationInfo
-from app.schemas.branch import BranchBase
+from datetime import datetime
 
 
-class EmployeeBase(BaseModel):
+class CustomerBase(BaseModel):
     full_name: str
     email: str
-    phone: str | None = None
+    phone_number: str | None = None
+    address: str | None = None
     photo: str | None = None
-    role: str
 
 
-class EmployeeCreate(EmployeeBase):
+class CustomerCreate(CustomerBase):
     password: str
-    branch_access: list[BranchBase] | None = None
     confirmed_password: str
 
     @field_validator("confirmed_password")
@@ -23,36 +22,28 @@ class EmployeeCreate(EmployeeBase):
         return v
 
 
-class EmployeeResponse(EmployeeBase):
+class Customer(CustomerBase):
     id: int
+    customer_total_collection: float
+    customer_total_payment: float
+    is_active: bool
+    created_at: datetime
+
+
+class CustomerResponse(CustomerBase):
+    id: int
+    customer_total_collection: float
+    customer_total_payment: float
     is_active: bool
 
     model_config = ConfigDict(from_attributes=True)
 
 
-class EmployeeAdminUpdate(BaseModel):
+class CustomerUpdate(CustomerBase):
     id: int
-    is_active: bool
-    role: str
-    branch_access: list[BranchBase] | None = None
 
 
-class EmployeeAccess(BaseModel):
-    sub: str
-    role: str
-    employee_access: list[int] | None = None
-    employee: str
-
-
-class EmployeeSelfUpdate(BaseModel):
-    id: int
-    full_name: str
-    email: str
-    phone: str | None = None
-    photo: str | None = None
-
-
-class EmployeePasswordReset(BaseModel):
+class CustomerPasswordReset(BaseModel):
     id: int
     old_password: str
     new_password: str
@@ -63,8 +54,3 @@ class EmployeePasswordReset(BaseModel):
         if "new_password" in info.data and v != info.data.get("new_password"):
             raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Passwords do not match")
         return v
-
-
-class EmployeeLogin(BaseModel):
-    email: str
-    password: str

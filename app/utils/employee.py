@@ -1,0 +1,28 @@
+from fastapi import Cookie
+from sqlalchemy.ext.asyncio import AsyncSession
+from app.crud import employee as emp_crud
+from .general import ExpiredTokenException, SECRET_KEY, ALGORITHM
+from app.schemas.employee import EmployeeAccess
+import jwt
+
+
+async def authenticate_employee(db: AsyncSession, email: str, password: str):
+    employee_data = await emp_crud.get_employee_by_email_for_access(email, db)
+    if not employee_data:
+        return False
+    if not emp_crud.pwd_context.verify(password, employee_data.hashed_password):
+        return False
+    return employee_data
+
+
+async def get_employee_access(access_token: str | None = Cookie(default=None)) -> EmployeeAccess:
+    if access_token is None:
+        raise ExpiredTokenException
+
+    token = access_token[len("Bearer "):]
+    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+
+    payload.pop("exp")
+    # the payload for employees contains email, role, employee_access, and the word "employee"
+
+    return EmployeeAccess(**payload)

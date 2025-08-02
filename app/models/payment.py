@@ -1,7 +1,7 @@
 from app.database import Base
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 from datetime import datetime, timezone
-from sqlalchemy import DateTime, ForeignKey, Index
+from sqlalchemy import DateTime, ForeignKey, Index, desc
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 class Payment(Base):
     __tablename__ = "payments"
     __table_args__ = (
-        Index("ix_cusotmer_created_at", "customer_id", "created_at"),
+        Index("ix_cusotmer_created_at", "customer_id", desc("created_at")),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)

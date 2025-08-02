@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from app.models.sales import Sale
     from app.models.inventory import Inventory
     from app.models.stock_delivery import StockDelivery
-    from app.models.user_branch_access import UserBranchAccess
+    from app.models.employee_branch_access import EmployeeBranchAccess
 
 
 class Branch(Base):
@@ -22,4 +22,4 @@ class Branch(Base):
     sales: Mapped[list["Sale"]] = relationship("Sale", back_populates="branch")
     inventories: Mapped[list["Inventory"]] = relationship("Inventory", back_populates="branch")
     stock_deliveries: Mapped[list["StockDelivery"]] = relationship("StockDelivery", back_populates="branch")
-    user_access: Mapped[list["UserBranchAccess"]] = relationship("UserBranchAccess", back_populates="branch")
+    employee_access: Mapped[list["EmployeeBranchAccess"]] = relationship("EmployeeBranchAccess", back_populates="branch")

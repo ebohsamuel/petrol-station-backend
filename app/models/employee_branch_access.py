@@ -8,13 +8,13 @@ if TYPE_CHECKING:
     from app.models.employee import Employee
 
 
-class UserBranchAccess(Base):
-    __tablename__ = "user_branch_access"
+class EmployeeBranchAccess(Base):
+    __tablename__ = "employee_branch_access"
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
     branch_id: Mapped[int] = mapped_column(ForeignKey("branches.id"))
     employee_id: Mapped[int] = mapped_column(ForeignKey("employees.id"))
 
-    branch: Mapped["Branch"] = relationship("Branch", back_populates="user_access")
-    employee: Mapped["Employee"] = relationship("Employee", back_populates="user_access")
+    branch: Mapped["Branch"] = relationship("Branch", back_populates="employee_access")
+    employee: Mapped["Employee"] = relationship("Employee", back_populates="employee_access")

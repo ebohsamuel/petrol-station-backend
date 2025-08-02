@@ -17,7 +17,7 @@ class Customers(Base):
     full_name: Mapped[str] = mapped_column()
     email: Mapped[str] = mapped_column(unique=True, index=True)
     hashed_password: Mapped[str] = mapped_column()
-    phone_number: Mapped[str] = mapped_column(unique=True)
+    phone_number: Mapped[str] = mapped_column(nullable=True)
     address: Mapped[str] = mapped_column(nullable=True)
     photo: Mapped[str] = mapped_column(nullable=True)  # image link is saved here while the actual file is saved in
     # Cloudinary

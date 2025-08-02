@@ -7,6 +7,6 @@ from .inventory import Inventory
 from .product_collection_request import ProductCollectionRequest
 from .stock_delivery import StockDelivery
 from .payment import Payment
-from .user_branch_access import UserBranchAccess
+from .employee_branch_access import EmployeeBranchAccess
 from .employee import Employee
 from app.database import Base
