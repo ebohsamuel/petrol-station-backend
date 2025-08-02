@@ -11,7 +11,7 @@ import os
 load_dotenv()
 
 
-DATABASE_URL = TEST_DB_URL = os.getenv("Test_DATABASE_URL")  # using a local postgresql db in .env
+DATABASE_URL = os.getenv('Test_DATABASE_URL')  # using a local postgresql db in .env
 
 async_engine = create_async_engine(DATABASE_URL)
 async_SessionLocal = async_sessionmaker(bind=async_engine, expire_on_commit=False)
