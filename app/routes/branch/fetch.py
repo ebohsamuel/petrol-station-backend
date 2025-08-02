@@ -5,12 +5,9 @@ from app.schemas.employee import EmployeeAccess
 from app.schemas.branch import BranchResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.database import get_db
-from dotenv import load_dotenv
-import os
 
-load_dotenv()
 
-GENERAL_EMPLOYEE_ACCESS = os.getenv("GENERAL_EMPLOYEE_ACCESS")
+GENERAL_EMPLOYEE_ACCESS = ["employee"]
 
 
 router = APIRouter()

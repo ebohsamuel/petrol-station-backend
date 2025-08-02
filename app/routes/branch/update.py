@@ -5,13 +5,10 @@ from app.schemas.employee import EmployeeAccess
 from app.schemas.branch import BranchUpdate
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.database import get_db
-from dotenv import load_dotenv
 from app.crud.branch import update_branch
-import os
 
-load_dotenv()
 
-CREATE_BRANCH_ACCESS = os.getenv("CREATE_BRANCH_ACCESS")
+CREATE_BRANCH_ACCESS = ["admin"]
 
 router = APIRouter()
 
