@@ -19,7 +19,7 @@ async def get_branch_by_name(name: str, db: AsyncSession):
     )
 
 
-async def get_branches(db: AsyncSession):
+async def get_branch_records(db: AsyncSession):
     stmt = await db.execute(select(Branch.id, Branch.name, Branch.location))
     return stmt.all()
 
@@ -40,7 +40,7 @@ async def create_branch(data: BranchCreate, db: AsyncSession):
         raise
 
 
-async def update_branch(data: BranchUpdate, db: AsyncSession):
+async def update_branch_record(data: BranchUpdate, db: AsyncSession):
     branch_data = await get_branch_by_id(data.id, db)
 
     for key, value in data.model_dump(exclude={"id"}).items():

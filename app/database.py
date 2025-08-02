@@ -7,7 +7,6 @@ load_dotenv()
 
 
 DATABASE_URL = os.getenv("DATABASE_URL")
-print(f"DATABASE_URL: ${DATABASE_URL}")
 
 async_engine = create_async_engine(DATABASE_URL)
 

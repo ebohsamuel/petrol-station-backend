@@ -5,7 +5,7 @@ from app.schemas.employee import EmployeeAccess
 from app.schemas.branch import BranchUpdate
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.database import get_db
-from app.crud.branch import update_branch
+from app.crud.branch import update_branch_record
 
 
 CREATE_BRANCH_ACCESS = ["admin"]
@@ -22,7 +22,7 @@ async def update_branch(
     if employee_access.role not in CREATE_BRANCH_ACCESS:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="access denied")
 
-    branch_data = await update_branch(data, db)
+    branch_data = await update_branch_record(data, db)
 
     response = JSONResponse(content={"detail": "update successful"})
     return response
