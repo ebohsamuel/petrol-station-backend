@@ -30,5 +30,6 @@ jobs:
       - name: Run tests with coverage
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          ACCESS_TOKEN_EXPIRE_MINUTES: 60
         run: |
           pytest tests --cov=app -s
