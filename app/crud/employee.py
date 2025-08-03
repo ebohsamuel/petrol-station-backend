@@ -51,6 +51,13 @@ async def get_employee_by_email_for_access(email: str, db: AsyncSession):
     )
 
 
+async def get_employee_by_email_with_lazy_loading(email: str, db: AsyncSession):
+    return await db.scalar(
+        select(Employee)
+        .where(Employee.email == email)
+    )
+
+
 async def create_employee(data: employee.EmployeeCreate, db: AsyncSession):
     hashed_password = pwd_context.hash(data.password)
 
@@ -115,7 +122,7 @@ async def employee_admin_update(data: employee.EmployeeAdminUpdate, db: AsyncSes
 
     # add needed branches
     branches = await db.scalars(select(Branch).where(Branch.name.in_(branches_to_add)))
-    branch_map = {b.name: b for b in branches}
+    branch_map = {b.name: b for b in (branches or [])}
 
     for branch_name in branches_to_add:
         branch_data = branch_map.get(branch_name)

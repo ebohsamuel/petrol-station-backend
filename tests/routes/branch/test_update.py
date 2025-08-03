@@ -10,7 +10,6 @@ async def test_update_branch(client, session):
     branch_data = Branch(name="Buvel", location="MM way")
     session.add(branch_data)
     await session.commit()
-    await session.refresh(branch_data)
 
     employee_data = emp_schema.EmployeeCreate(
         full_name="Test Tenant",
@@ -21,9 +20,13 @@ async def test_update_branch(client, session):
     )
 
     employee = await emp_crud.create_employee(data=employee_data, db=session)
+    employee.is_active = True
+    await session.commit()
+    await session.refresh(employee, attribute_names=["employee_access"])
 
     data = {
         "sub": employee.email,
+        "employeeId": employee.id,
         "role": employee.role,
         "employee_access": [eba.branch_id for eba in (employee.employee_access or [])],
         "employee": "employee"
@@ -49,7 +52,6 @@ async def test_update_branch_admin_exception(client, session):
     branch_data = Branch(name="Buvel", location="MM way")
     session.add(branch_data)
     await session.commit()
-    await session.refresh(branch_data)
 
     employee_data = emp_schema.EmployeeCreate(
         full_name="Test Tenant",
@@ -60,9 +62,13 @@ async def test_update_branch_admin_exception(client, session):
     )
 
     employee = await emp_crud.create_employee(data=employee_data, db=session)
+    employee.is_active = True
+    await session.commit()
+    await session.refresh(employee, attribute_names=["employee_access"])
 
     data = {
         "sub": employee.email,
+        "employeeId": employee.id,
         "role": employee.role,
         "employee_access": [eba.branch_id for eba in (employee.employee_access or [])],
         "employee": "employee"

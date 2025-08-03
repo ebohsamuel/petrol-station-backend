@@ -39,13 +39,14 @@ class EmployeeAdminUpdate(BaseModel):
 
 class EmployeeAccess(BaseModel):
     sub: str
+    employeeId: int
     role: str
     employee_access: list[int] | None = None
     employee: str
 
 
 class EmployeeSelfUpdate(BaseModel):
-    id: int
+    id: int | None = None
     full_name: str
     email: str
     phone: str | None = None
@@ -53,7 +54,7 @@ class EmployeeSelfUpdate(BaseModel):
 
 
 class EmployeePasswordReset(BaseModel):
-    id: int
+    id: int | None = None
     old_password: str
     new_password: str
     confirmed_password: str

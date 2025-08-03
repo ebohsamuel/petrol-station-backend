@@ -1,4 +1,5 @@
 import pytest
+
 from app.models import Branch
 from app.schemas import employee as emp_schema
 from app.crud import employee as emp_crud
@@ -6,13 +7,13 @@ from app.utils.general import create_access_token
 
 
 @pytest.mark.asyncio
-async def test_fetch_branch_records(client, session):
-    branch_data = Branch(name="Buvel", location="MM way")
+async def test_register_employee(client, session):
+    branch_data = Branch(name="station1", location="269 mm way")
     session.add(branch_data)
     await session.commit()
 
     employee_data = emp_schema.EmployeeCreate(
-        full_name="Test Tenant",
+        full_name="employee1",
         email="test@example.com",
         password="password123",
         confirmed_password="password123",
@@ -34,8 +35,16 @@ async def test_fetch_branch_records(client, session):
     access_token = create_access_token(data)
     client.cookies.set(name="access_token", value=f"Bearer {access_token}")
 
-    response = await client.get("/employee/branches")
+    new_employee_data = {
+        "full_name": "employee2",
+        "email": "p1@example.com",
+        "password": "password1234",
+        "confirmed_password": "password1234",
+        "role": "manager",
+        "branch_access": [{"name": "station1", "location": "269 mm way"}]
+    }
+
+    response = await client.post("/employee/register-employee", json=new_employee_data)
     assert response.status_code == 200
     data = response.json()
-    assert data[0]["location"] == "MM way"
-    assert data[0]["id"] == 1
+    assert data["detail"] == "employee registered successfully"

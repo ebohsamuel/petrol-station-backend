@@ -21,10 +21,15 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-app.include_router(employee_login_router, prefix="/employee", tags=["Employee"])
+
 app.include_router(fetch_branch_router, prefix="/employee", tags=["Employee"])
 app.include_router(branch_update_router, prefix="/employee", tags=["Employee"])
 app.include_router(branch_register_router, prefix="/employee", tags=["Employee"])
+app.include_router(employee_login_router, prefix="/employee", tags=["Employee"])
+app.include_router(employee_profile_update_router, prefix="/employee", tags=["Employee"])
+app.include_router(register_employee_router, prefix="/employee", tags=["Employee"])
+app.include_router(employee_admin_update_router, prefix="/employee", tags=["Employee"])
+app.include_router(employee_password_reset_router, prefix="/employee", tags=["Employee"])
 
 origin = ["http://localhost:3000"]
 

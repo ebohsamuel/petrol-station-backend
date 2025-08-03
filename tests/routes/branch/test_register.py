@@ -15,9 +15,13 @@ async def test_branch_registration(client, session):
     )
 
     employee = await emp_crud.create_employee(data=employee_data, db=session)
+    employee.is_active = True
+    await session.commit()
+    await session.refresh(employee, attribute_names=["employee_access"])
 
     data = {
         "sub": employee.email,
+        "employeeId": employee.id,
         "role": employee.role,
         "employee_access": [eba.branch_id for eba in (employee.employee_access or [])],
         "employee": "employee"
@@ -48,9 +52,13 @@ async def test_branch_registration_admin_exception(client, session):
     )
 
     employee = await emp_crud.create_employee(data=employee_data, db=session)
+    employee.is_active = True
+    await session.commit()
+    await session.refresh(employee, attribute_names=["employee_access"])
 
     data = {
         "sub": employee.email,
+        "employeeId": employee.id,
         "role": employee.role,
         "employee_access": [eba.branch_id for eba in (employee.employee_access or [])],
         "employee": "employee"

@@ -21,6 +21,7 @@ async def generate_access_token(data: EmployeeLogin, db: AsyncSession = Depends(
 
     data = {
         "sub": email,
+        "employeeId": employee_data.id,
         "role": employee_data.role,
         "employee_access": [eba.branch_id for eba in (employee_data.employee_access or [])],
         "employee": "employee"
