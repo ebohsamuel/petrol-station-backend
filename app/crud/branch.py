@@ -29,7 +29,6 @@ async def create_branch(data: BranchCreate, db: AsyncSession):
     try:
         db.add(branch_data)
         await db.commit()
-        await db.refresh(branch_data)
         return branch_data
     except SQLAlchemyError as e:
         await db.rollback()
@@ -49,7 +48,7 @@ async def update_branch_record(data: BranchUpdate, db: AsyncSession):
     try:
         db.add(branch_data)
         await db.commit()
-        await db.refresh(branch_data)
+        return branch_data
     except SQLAlchemyError as e:
         await db.rollback()
         print(f"An error occurred: {e}")

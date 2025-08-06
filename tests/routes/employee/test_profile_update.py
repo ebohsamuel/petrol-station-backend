@@ -68,6 +68,7 @@ async def test_profile_update_inactive_exception(client, session):
     new_employee_data = emp_schema.EmployeeCreate(**new_employee_data)
 
     employee = await emp_crud.create_employee(new_employee_data, session)
+    await session.refresh(employee, attribute_names=["employee_access"])
 
     data = {
         "sub": employee.email,

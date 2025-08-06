@@ -81,7 +81,6 @@ async def create_employee(data: employee.EmployeeCreate, db: AsyncSession):
     try:
         db.add_all([employee_data, *employee_branch_access])
         await db.commit()
-        await db.refresh(employee_data, attribute_names=["employee_access"])
         return employee_data
     except SQLAlchemyError as e:
         await db.rollback()
@@ -130,7 +129,6 @@ async def employee_admin_update(data: employee.EmployeeAdminUpdate, db: AsyncSes
             employee_data.employee_access.append(EmployeeBranchAccess(branch=branch_data))
     try:
         await db.commit()
-        await db.refresh(employee_data)
         return employee_data
     except SQLAlchemyError as e:
         await db.rollback()
@@ -149,10 +147,8 @@ async def employee_self_update(data: employee.EmployeeSelfUpdate, db: AsyncSessi
     data_dict = data.model_dump(exclude_none=True, exclude={"id"})
     for key, value in data_dict.items():
         setattr(employee_data, key, value)
-
     try:
         await db.commit()
-        await db.refresh(employee_data)
         return employee_data
     except SQLAlchemyError as e:
         await db.rollback()
@@ -170,10 +166,8 @@ async def reset_employee_password(data: employee.EmployeePasswordReset, db: Asyn
 
     hashed_password = pwd_context.hash(data.new_password)
     setattr(employee_data, "hashed_password", hashed_password)
-
     try:
         await db.commit()
-        await db.refresh(employee_data)
         return employee_data
     except SQLAlchemyError as e:
         await db.rollback()
