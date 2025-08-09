@@ -21,14 +21,14 @@ async def get_employee_access(
         db: AsyncSession = Depends(get_db)
 ) -> EmployeeAccess:
     if access_token is None:
-        raise ExpiredTokenException
+        raise ExpiredTokenException()
 
     token = access_token[len("Bearer "):]
     payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
 
     employee = await emp_crud.get_employee_by_email_with_lazy_loading(payload.get("sub"), db)
     if not employee:
-        raise ExpiredTokenException
+        raise ExpiredTokenException()
 
     payload.pop("exp")
     # the payload for employees contains sub(email), employeeId, role, employee_access, and the word "employee"
