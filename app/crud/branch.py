@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -41,6 +42,8 @@ async def create_branch(data: BranchCreate, db: AsyncSession):
 
 async def update_branch_record(data: BranchUpdate, db: AsyncSession):
     branch_data = await get_branch_by_id(data.id, db)
+    if not branch_data:
+        raise HTTPException(status_code=404, detail="branch not found")
 
     for key, value in data.model_dump(exclude={"id"}).items():
         setattr(branch_data, key, value)

@@ -6,6 +6,7 @@ from app.database import async_engine, Base
 from app.routes.employee import *
 from app.routes.branch import *
 from app.routes.product import *
+from app.routes.price_history import *
 import app.models
 from contextlib import asynccontextmanager
 from app.utils.general import ExpiredTokenException
@@ -35,6 +36,8 @@ app.include_router(fetch_employee_router, prefix="/employee", tags=["Employee"])
 app.include_router(fetch_product_router, prefix="/employee", tags=["Employee"])
 app.include_router(register_product_router, prefix="/employee", tags=["Employee"])
 app.include_router(update_product_router, prefix="/employee", tags=["Employee"])
+app.include_router(adjust_price_router, prefix="/employee", tags=["Employee"])
+app.include_router(fetch_product_price_router, prefix="/employee", tags=["Employee"])
 
 origin = ["http://localhost:3000"]
 

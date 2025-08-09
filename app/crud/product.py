@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.models import Products
+from app.models import Products, PriceHistory
 from app.schemas.product import ProductUpdate, ProductCreate
 
 
@@ -26,8 +26,12 @@ async def get_all_products(db: AsyncSession):
 
 async def create_product(data: ProductCreate, db: AsyncSession):
     product = Products(**data.model_dump(exclude_none=True))
+    instances = [product]
+    if data.latest_price:
+        price_history = PriceHistory(product=product, price=data.latest_price)
+        instances.append(price_history)
     try:
-        db.add(product)
+        db.add_all(instances=instances)
         await db.commit()
         return product
     except SQLAlchemyError as e:
