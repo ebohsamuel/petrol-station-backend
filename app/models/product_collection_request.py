@@ -21,7 +21,7 @@ class ProductCollectionRequest(Base):
     status: Mapped[str] = mapped_column(default="pending") # pending or approved
     plate_number: Mapped[str] = mapped_column(nullable=True) # null for issues that don't concern plate number
 
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
     customer: Mapped["Customers"] = relationship("Customers", back_populates="product_collection_requests")
     product: Mapped["Products"] = relationship("Products", back_populates="product_collection_requests")

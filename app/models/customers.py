@@ -26,7 +26,7 @@ class Customers(Base):
     customer_total_payment: Mapped[float] = mapped_column(default=0.0)  # total amount a customer paid in to their
     # wallet. update is done by adding new payment to the previous payment
     is_active: Mapped[bool] = mapped_column(default=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
     sales: Mapped[list["Sale"]] = relationship("Sale", back_populates="customer")
     product_collection_requests: Mapped[list["ProductCollectionRequest"]] = relationship("ProductCollectionRequest", back_populates="customer")

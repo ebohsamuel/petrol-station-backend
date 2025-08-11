@@ -31,7 +31,7 @@ class Sale(Base):
     total_price: Mapped[float] = mapped_column()
     quantity: Mapped[int] = mapped_column()
     
-    sales_time: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
+    sales_time: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
     product: Mapped["Products"] = relationship("Products", back_populates="sales")
     customer: Mapped["Customers"] = relationship("Customers", back_populates="sales")

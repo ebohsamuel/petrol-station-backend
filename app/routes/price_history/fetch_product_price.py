@@ -5,6 +5,7 @@ from app.utils.employee import get_active_employee_access
 from app.schemas.employee import EmployeeAccess
 from app.schemas.price_history import PriceHistoryResponse
 from sqlalchemy.ext.asyncio import AsyncSession
+from datetime import datetime
 from sqlalchemy import select, desc
 from app.database import get_db
 
@@ -18,7 +19,7 @@ router = APIRouter()
 async def get_price_history(
         product_id: int,
         limit: int = 10,
-        offset: int = 0,
+        last_created_at: datetime | None = None,
         db: AsyncSession = Depends(get_db),
         employee_access: EmployeeAccess = Depends(get_active_employee_access)
 ):
@@ -29,17 +30,21 @@ async def get_price_history(
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
 
-    stmt = await db.scalars(
+    query = (
         select(PriceHistory)
         .where(PriceHistory.product_id == product_id)
-        .limit(limit)
-        .offset(offset)
         .order_by(desc(PriceHistory.created_at))
+        .limit(limit)
     )
 
-    price_history = stmt.all()
+    if last_created_at:
+        query = query.where(
+            PriceHistory.created_at < last_created_at
+        )
 
-    return price_history
+    stmt = await db.scalars(query)
+
+    return stmt.all()
 
 
 @router.get("/get-product-latest-price")

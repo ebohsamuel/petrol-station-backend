@@ -23,6 +23,6 @@ class Payment(Base):
     paystack_ref: Mapped[str] = mapped_column(unique=True, index=True)
     status: Mapped[str] = mapped_column() # can be failed, pending,and success
 
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
     customer: Mapped["Customers"] = relationship("Customers", back_populates="payments")

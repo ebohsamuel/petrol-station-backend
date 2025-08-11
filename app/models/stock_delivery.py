@@ -1,6 +1,6 @@
 from app.database import Base
 from sqlalchemy.orm import mapped_column, Mapped, relationship
-from sqlalchemy import DateTime, ForeignKey, Index, desc
+from sqlalchemy import ForeignKey, Index, desc, Date
 from datetime import date
 from typing import TYPE_CHECKING
 
@@ -12,8 +12,7 @@ if TYPE_CHECKING:
 class StockDelivery(Base):
     __tablename__ = "stock_delivery"
     __table_args__ = (
-        Index("ix_branch_supplied_date", "branch_id", "supplied_date"),
-        Index("ix_supplied_date_desc", desc("supplied_date")),
+        Index("ix_supplied_date_id_desc", desc("supplied_date"), desc("id")),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -23,8 +22,9 @@ class StockDelivery(Base):
 
     quantity: Mapped[int] = mapped_column()
     supplier_name: Mapped[str] = mapped_column()
+    unit_cost: Mapped[float] = mapped_column()
 
-    supplied_date: Mapped[date] = mapped_column(DateTime, index=True)
+    supplied_date: Mapped[date] = mapped_column(Date)
 
     product: Mapped["Products"] = relationship("Products", back_populates="stock_deliveries")
     branch: Mapped["Branch"] = relationship("Branch", back_populates="stock_deliveries")
