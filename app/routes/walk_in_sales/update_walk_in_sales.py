@@ -34,8 +34,12 @@ async def update_walk_in_sales(
     if not sale_record:
         raise HTTPException(status_code=404, detail="Sale record not found")
 
+    sales_time = sale_record.sales_time
+    if sales_time.tzinfo is None:
+        sales_time = sales_time.replace(tzinfo=timezone.utc)
+
     # we check if the record has been in the db for more than 3 hours and if not we raise an exception
-    time_diff = datetime.now(timezone.utc) - sale_record.sales_time
+    time_diff = datetime.now(timezone.utc) - sales_time
     if time_diff > timedelta(hours=3):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="sales data has been locked")
 
