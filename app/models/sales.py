@@ -1,6 +1,6 @@
 from app.database import Base
 from sqlalchemy.orm import mapped_column, Mapped, relationship
-from sqlalchemy import DateTime, ForeignKey, Index
+from sqlalchemy import DateTime, ForeignKey, Index, desc
 from datetime import datetime, timezone
 from typing import TYPE_CHECKING
 
@@ -15,8 +15,8 @@ if TYPE_CHECKING:
 class Sale(Base):
     __tablename__ = "sales"
     __table_args__ = (
-        Index("ix_customer_sales_time", "customer_id", "sales_time"),
-        Index("ix_branch_sales_time", "branch_id", "sales_time"),
+        Index("ix_customer_sales_time_id", "customer_id", desc("sales_time"), desc("id")),
+        Index("ix_branch_sales_time_id", "branch_id", desc("sales_time"), desc("id")),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)

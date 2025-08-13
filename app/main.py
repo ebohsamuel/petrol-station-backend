@@ -8,6 +8,7 @@ from app.routes.branch import *
 from app.routes.product import *
 from app.routes.price_history import *
 from app.routes.stock import *
+from app.routes.walk_in_sales import *
 import app.models
 from contextlib import asynccontextmanager
 from app.utils.general import ExpiredTokenException
@@ -43,6 +44,9 @@ app.include_router(fetch_inventory_router, prefix="/employee", tags=["Employee"]
 app.include_router(fetch_stock_delivery_router, prefix="/employee", tags=["Employee"])
 app.include_router(new_delivery_router, prefix="/employee", tags=["Employee"])
 app.include_router(update_delivery_router, prefix="/employee", tags=["Employee"])
+app.include_router(fetch_wis_router, prefix="/employee", tags=["Employee"])
+app.include_router(update_wis_router, prefix="/employee", tags=["Employee"])
+app.include_router(register_new_wis_router, prefix="/employee", tags=["Employee"])
 
 origin = ["http://localhost:3000"]
 

@@ -16,7 +16,7 @@ class Employee(Base):
     hashed_password: Mapped[str] = mapped_column()
     phone: Mapped[str] = mapped_column(nullable=True)
     photo: Mapped[str] = mapped_column(nullable=True)
-    role: Mapped[str] = mapped_column() # can be admin, manager, sales, inventory
+    role: Mapped[str] = mapped_column() # can be admin, manager, walk_in_sales, inventory
     is_active: Mapped[bool] = mapped_column(default=False)
 
     employee_access: Mapped[list["EmployeeBranchAccess"]] = relationship("EmployeeBranchAccess", back_populates="employee")
