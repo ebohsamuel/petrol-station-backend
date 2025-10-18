@@ -10,7 +10,7 @@ from datetime import datetime, timezone, timedelta
 from sqlalchemy.exc import SQLAlchemyError
 
 
-CREATE_BRANCH_ACCESS = ["admin"]
+CREATE_BRANCH_ACCESS = {"admin"}
 
 router = APIRouter()
 

@@ -9,7 +9,7 @@ from app.database import get_db
 from app.models import Branch
 
 
-CREATE_EMPLOYEE_ACCESS = ["admin", "manager"]
+CREATE_EMPLOYEE_ACCESS = {"admin", "manager"}
 
 router = APIRouter()
 

@@ -10,7 +10,7 @@ from fastapi import APIRouter, Depends, status, HTTPException
 from datetime import datetime
 
 
-CREATE_BRANCH_ACCESS = ["admin"]
+CREATE_BRANCH_ACCESS = {"admin"}
 
 router = APIRouter()
 

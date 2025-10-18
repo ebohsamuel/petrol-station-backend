@@ -12,7 +12,7 @@ from app.crud.branch import get_branch_by_name
 from app.database import get_db
 
 
-CREATE_BRANCH_ACCESS = ["admin"]
+CREATE_BRANCH_ACCESS = {"admin"}
 
 router = APIRouter()
 

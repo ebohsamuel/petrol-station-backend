@@ -9,7 +9,7 @@ from app.schemas.employee import EmployeeAccess
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.database import get_db
 
-CREATE_BRANCH_ACCESS = ["admin"]
+CREATE_BRANCH_ACCESS = {"admin"}
 
 router = APIRouter()
 

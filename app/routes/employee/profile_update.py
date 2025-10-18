@@ -7,7 +7,7 @@ from app.crud.employee import employee_self_update
 from app.database import get_db
 
 
-GENERAL_EMPLOYEE_ACCESS = ["employee"]
+GENERAL_EMPLOYEE_ACCESS = {"employee"}
 
 
 router = APIRouter()

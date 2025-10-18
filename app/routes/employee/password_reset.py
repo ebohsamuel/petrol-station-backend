@@ -7,7 +7,7 @@ from app.crud.employee import reset_employee_password
 from app.database import get_db
 
 
-GENERAL_EMPLOYEE_ACCESS = ["employee"]
+GENERAL_EMPLOYEE_ACCESS = {"employee"}
 
 
 router = APIRouter()
