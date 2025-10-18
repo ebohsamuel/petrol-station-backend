@@ -8,7 +8,7 @@ from app.models import PriceHistory
 from app.database import get_db
 
 
-CREATE_BRANCH_ACCESS = ["admin"]
+CREATE_BRANCH_ACCESS = ["admin", "manager"]
 
 router = APIRouter()
 
