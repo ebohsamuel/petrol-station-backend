@@ -7,7 +7,7 @@ from app.crud.employee import employee_admin_update
 from app.database import get_db
 
 
-CREATE_EMPLOYEE_ACCESS = ["admin",]
+CREATE_EMPLOYEE_ACCESS = {"admin"}
 
 router = APIRouter()
 

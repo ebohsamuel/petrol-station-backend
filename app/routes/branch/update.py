@@ -8,7 +8,7 @@ from app.database import get_db
 from app.crud.branch import update_branch_record
 
 
-CREATE_BRANCH_ACCESS = ["admin"]
+CREATE_BRANCH_ACCESS = {"admin"}
 
 router = APIRouter()
 

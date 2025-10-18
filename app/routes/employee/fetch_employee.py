@@ -7,7 +7,7 @@ from app.models import Employee
 from app.database import get_db
 from sqlalchemy import func, select
 
-CREATE_EMPLOYEE_ACCESS = ["admin",]
+CREATE_EMPLOYEE_ACCESS = {"admin"}
 
 router = APIRouter()
 

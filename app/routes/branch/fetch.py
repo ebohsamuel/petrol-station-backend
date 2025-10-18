@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.database import get_db
 
 
-GENERAL_EMPLOYEE_ACCESS = ["employee"]
+GENERAL_EMPLOYEE_ACCESS = {"employee"}
 
 
 router = APIRouter()

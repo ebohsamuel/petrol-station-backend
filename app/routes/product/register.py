@@ -8,7 +8,7 @@ from app.database import get_db
 from app.crud.product import create_product
 
 
-CREATE_BRANCH_ACCESS = ["admin"]
+CREATE_BRANCH_ACCESS = {"admin"}
 
 router = APIRouter()
 
